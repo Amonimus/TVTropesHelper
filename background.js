@@ -1,7 +1,8 @@
 let following = '<ul><li>All read.</li></ul>';
-chrome.storage.sync.set({ following });
+chrome.storage.sync.set({"following": following});
 let forums = '<ul><li>All read.</li></ul>';
-chrome.storage.sync.set({ forums });
+chrome.storage.sync.set({"forums": forums});
+/*
 getFollowing();
 getForums();
 
@@ -33,10 +34,10 @@ function getFollowing(){
             }
             message += "</ul>";
             let following = message;
-            chrome.storage.sync.set({ following });
+            chrome.storage.sync.set({"following": following});
         } else {
             let following = "Couldn't load Following.";
-            chrome.storage.sync.set({ following });
+            chrome.storage.sync.set({"following": following});
         }
     });
 }
@@ -60,10 +61,11 @@ function getForums(){
             }
             message += "</ul>";
             let forums = message;
-            chrome.storage.sync.set({ forums });
+            chrome.storage.sync.set({"forums": forums});
         } else {
             let forums = "Couldn't load Forums.";
-            chrome.storage.sync.set({ forums });
+            chrome.storage.sync.set({"forums": forums});
         }
     });
 }
+*/

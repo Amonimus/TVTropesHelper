@@ -3,7 +3,7 @@
     "description": "Assist tool for TVTropes",
     "version": "1.0",
     "manifest_version": 3,
-    "permissions": ["storage", "activeTab", "scripting", "tabs", "management", "background", "alarms"],
+    "permissions": ["storage", "activeTab", "scripting", "tabs", "management", "background"],
     "host_permissions": ["http://*/*", "https://*/*"],
     "content_scripts": [ 
         { 
@@ -14,17 +14,18 @@
     "options_page": "options.html",
     "action": {
         "default_popup": "popup.html",
+        "default_title": "Popup",
         "default_icon": {
-            "16": "/images/icon16.png",
-            "32": "/images/icon32.png",
-            "48": "/images/icon48.png",
-            "128": "/images/icon128.png"
+            "16": "/icons/default/icon16.png",
+            "32": "/icons/default/icon32.png",
+            "48": "/icons/default/icon48.png",
+            "128": "/icons/default/icon128.png"
         }
     },
     "icons": {
-        "16": "/images/icon16.png",
-        "32": "/images/icon32.png",
-        "48": "/images/icon48.png",
-        "128": "/images/icon128.png"
+        "16": "/icons/default/icon16.png",
+        "32": "/icons/default/icon32.png",
+        "48": "/icons/default/icon48.png",
+        "128": "/icons/default/icon128.png"
     }
 }
