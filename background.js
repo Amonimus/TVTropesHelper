@@ -2,7 +2,7 @@ let following = '<ul><li>All read.</li></ul>';
 chrome.storage.sync.set({"following": following});
 let forums = '<ul><li>All read.</li></ul>';
 chrome.storage.sync.set({"forums": forums});
-/*
+
 getFollowing();
 getForums();
 
@@ -29,7 +29,7 @@ function getFollowing(){
                     var v = rows[i].getElementsByTagName('td')[1].getElementsByTagName('a')[0].textContent
                     var t = rows[i].getElementsByTagName('td')[0].textContent.split('Unfollow ')[1]
                     var s = rows[i].getElementsByTagName('td')[2].getElementsByTagName('a')[0].textContent
-                    message += '<li><a href="' + h + '">' + v + "</a> at " + t + " by " + s + "</li>";
+                    message += '<li><a href="' + h + '" target="_blank">' + v + "</a> at " + t + " by " + s + "</li>";
                 }
             }
             message += "</ul>";
@@ -56,7 +56,7 @@ function getForums(){
                     var v = rows[i].getElementsByTagName('td')[1].getElementsByTagName('a')[0].textContent
                     var t = rows[i].getElementsByTagName('td')[3].getElementsByTagName('a')[0].textContent
                     var s = rows[i].getElementsByTagName('td')[4].textContent
-                    message += '<li><a href="' + h + '">' + v + "</a> at " + t + " by " + s + "</li>";
+                    message += '<li><a href="' + h + '" target="_blank">' + v + "</a> at " + t + " by " + s + "</li>";
                 }
             }
             message += "</ul>";
@@ -68,4 +68,3 @@ function getForums(){
         }
     });
 }
-*/

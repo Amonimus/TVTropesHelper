@@ -18,6 +18,7 @@ function set_icon_default(){
         }
     });
 }
+
 chrome.storage.sync.get("following", function(storage){
     console.log(storage.following);
     if (storage.following != ""){

@@ -6,4 +6,7 @@ Functions
 
 Issues
 * It only works if the active tab is on https://tvtropes.org/ domain and is refreshed.
+* Following above, it doesn't update automatically.
 * You must be logged in.
+* I can't set scrolling for the pop-up.
+* Better styling needed maybe.
