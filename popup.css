@@ -1,6 +1,11 @@
 html {
-    width: 400px;
-    height: 400px;
+    min-width: 400px;
+    min-height: 400px;
+    background-color: #f1f1f1;
+}
+
+body {
+    overflow: auto;
 }
 
 a:visited{
@@ -8,13 +13,32 @@ a:visited{
 }
 
 .auth{
+    background-color: #a0a0ff;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
     display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+img {
+    padding: 10px;
 }
 
 button{
     margin: 10px;
 }
 
+ul {
+    padding: 0;
+    list-style-type: none;
+}
+
 li {
+    border-radius: 25px;
+    border: 2px solid blue;
+    background-color: white;
     font-weight: bold;
+    padding: 10px;
 }
