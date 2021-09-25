@@ -80,7 +80,7 @@ function getTable(source){
                 if (test){
                     console.log("This is unread");
                     if (source == "Following"){
-                        var href = rows[i].split("<td")[2].split('href="')[1].split('"')[0];
+                        var href = rows[i].split("<td")[4].split('href="')[1].split('"')[0];
                         var title = rows[i].split("<td")[2].split('target="_blank" >')[1].split("</a>")[0];
                         var time = rows[i].split("<td")[1].split("</button> ")[1].split("</td>")[0];
                         var sender = rows[i].split("<td")[3].split('"/pmwiki/pmwiki.php/Tropers/')[1].split('"')[0];
@@ -112,55 +112,4 @@ function getTable(source){
         console.log("error");
         console.log(error);
     });
-    /*
-    $.get(link, function(data, textStatus, jqXHR){
-        if (textStatus != "success"){
-            console.log("fail");
-            postError(source);
-        } else {
-            console.log("success");
-            var parser = new DOMParser();
-            var doc = parser.parseFromString(data, 'text/html');
-            var rows = doc.getElementsByTagName('table')[0].getElementsByTagName('tr');
-            var message = '<ul>';
-            for (var i=0; i<rows.length; i++){
-                var test;
-                if (source == "Following"){
-                    test = rows[i].classList.contains("dark");
-                } else if (source == "Forums"){
-                    test = rows[i].getElementsByClassName("fa-check-circle").length == 1;
-                }
-                if(test){
-                    console.log("got unread");
-                    var href = rows[i].getElementsByTagName('td')[1].getElementsByTagName('a')[0].href;
-                    var title = rows[i].getElementsByTagName('td')[1].getElementsByTagName('a')[0].textContent;
-                    var time;
-                    if (source == "Following"){
-                        time = rows[i].getElementsByTagName('td')[0].textContent.split('Unfollow ')[1];
-                    } else if (source == "Forums"){
-                        time = rows[i].getElementsByTagName('td')[3].getElementsByTagName('a')[0].textContent;
-                    }
-                    var sender;
-                    if (source == "Following"){
-                        sender = rows[i].getElementsByTagName('td')[2].getElementsByTagName('a')[0].textContent;
-                    } else if (source == "Forums"){
-                        sender = rows[i].getElementsByTagName('td')[4].textContent;
-                    }
-                    set_icon_notification();
-                    message += '<li><a href="' + href + '" target="_blank">' + title + "</a> at " + time + " by " + sender + "</li>";
-                }
-            }
-            message += "</ul>";
-            console.log("sending");
-            if (source == "Following"){
-                chrome.storage.sync.set({"following": message});
-            } else if (source == "Forums"){
-                chrome.storage.sync.set({"forums": message});
-            } 
-        }
-    }).fail(function() {
-        console.log("complete fail");
-        postError(source);
-    });
-    */
 }
