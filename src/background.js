@@ -19,8 +19,19 @@ function set_icon_default(){
     });
 }
 
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+    if (request.message === "async"){
+        set_icon_default();
+        getTable("Following");
+        getTable("Forums");
+        sendResponse({message: "response"});
+    }
+});
+
 chrome.runtime.onInstalled.addListener(function(details){
     console.log("init");
+    
+    chrome.storage.sync.set({"login": false});
 
     let following = '<ul><li>All read.</li></ul>';
     chrome.storage.sync.set({"following": following});
@@ -33,8 +44,8 @@ chrome.runtime.onInstalled.addListener(function(details){
 });
 
 chrome.alarms.onAlarm.addListener(function(alarm){
+    console.log("tick");
     if (alarm.name == 'timer'){
-        console.log("timer");
         set_icon_default();
         getTable("Following");
         getTable("Forums");
@@ -59,7 +70,6 @@ function getTable(source){
     }
     fetch(link)
     .then(response => {
-        console.log("got");
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
@@ -67,8 +77,13 @@ function getTable(source){
     })
     .then(html => {
         if (html.includes('<table')){
-            table = html.split('<table')[1].split('</table>')[0];
-            rows = table.split('<tr');
+            var username = html.split('/pmwiki/unknower.php?handle=')[1].split('"')[0];
+            var img = html.split('header-hover-menu"><img src="')[1].split('"')[0];
+            var profile = '<p>Hello, <a href="https://tvtropes.org/pmwiki/pmwiki.php/Tropers/'+username+'" target="_blank">'+username+'</a>!</p><a href="https://tvtropes.org/pmwiki/pmwiki.php/Tropers/'+username+'" target="_blank"><img class="profilepic" height=50px src="'+img+'"></a>';
+            chrome.storage.sync.set({"login": profile});
+            
+            var table = html.split('<table')[1].split('</table>')[0];
+            var rows = table.split('<tr');
             var message = '<ul>';
             for (var i=1; i<rows.length; i++){
                 var test;
@@ -78,7 +93,6 @@ function getTable(source){
                     test = rows[i].includes('fa-check-circle');
                 }
                 if (test){
-                    console.log("This is unread");
                     if (source == "Following"){
                         var href = rows[i].split("<td")[4].split('href="')[1].split('"')[0];
                         var title = rows[i].split("<td")[2].split('target="_blank" >')[1].split("</a>")[0];
@@ -92,24 +106,28 @@ function getTable(source){
                     }
                     set_icon_notification();
                     message += '<li><a href="https://tvtropes.org/' + href + '" target="_blank">' + title + "</a> on " + time + " by " + sender + "</li>";
-                } else {
-                    console.log("This is read");
                 }
             }
             message += "</ul>";
-            console.log("sending");
-            console.log(message);
             if (source == "Following"){
                 chrome.storage.sync.set({"following": message});
             } else if (source == "Forums"){
                 chrome.storage.sync.set({"forums": message});
             }
         } else {
-            postError(source);
+            if (html.includes('signup-login-box')){
+                chrome.storage.sync.set({"login": false});
+                if (source == "Following"){
+                    chrome.storage.sync.set({"following": "<ul><li>Login required.</li></ul>"});
+                } else if (source == "Forums"){
+                    chrome.storage.sync.set({"forums": "<ul><li>Login required.</li></ul>"});
+                }
+            } else {
+                postError(source);
+            }
         }
     })
     .catch(error => {
-        console.log("error");
         console.log(error);
     });
 }

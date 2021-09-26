@@ -5,19 +5,23 @@
     </head>
     <body>
         <div class="auth">
-            <img src="https://tvtropes.org/images/logo-white-big.png"  width="180">
-            <p class="greeting">Hello,&nbsp;</p>
-            <p class="greeting" id="name"><a href="https://tvtropes.org/pmwiki/pmwiki.php/Tropers/Amonimus" target="_blank">Troper</a></p>
-            <p class="greeting">!</p>
-            <button>Authorize</button>
+            <img class="logo" src="https://tvtropes.org/images/logo-white-big.png" width="180">
+            <div id="name">
+                <p>Hello, Troper!</p>
+            </div>
         </div>
         <hr>
-        <h1>Followed <a href="https://tvtropes.org/pmwiki/awl.php" target="_blank">Pages</a></h1>
-            <div id="following">Not loaded</div>
-        <hr>
-        <h1>Followed <a href="https://tvtropes.org/pmwiki/thread_watch.php" target="_blank">Forums</a></h1>
-            <div id="forums">Not loaded</div>
-        <hr>
+        <div id="login">
+            <iframe scrolling="no" src="https://tvtropes.org/pmwiki/login_prompt.php" width="100%" height="600px"></iframe>
+        </div>
+        <div id="main">
+            <h1>Followed <a href="https://tvtropes.org/pmwiki/awl.php" target="_blank">Pages</a></h1>
+                <div id="following">Not loaded</div>
+            <hr>
+            <h1>Followed <a href="https://tvtropes.org/pmwiki/thread_watch.php" target="_blank">Forums</a></h1>
+                <div id="forums">Not loaded</div>
+            <hr>
+        </div>
         <script src="popup.js"></script>
     </body>
 </html>

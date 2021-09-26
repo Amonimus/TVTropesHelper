@@ -5,24 +5,44 @@ html {
 }
 
 body {
-    overflow: auto;
+    margin: 0px;
 }
 
-a:visited{
+a:visited {
     color: blue;
 }
 
-.auth{
+.auth {
     background-color: #a0a0ff;
     height: 50px;
-    line-height: 50px;
     text-align: center;
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
+    z-index: 1;
 }
 
-img {
+#name {
+    display: flex;
+}
+
+#name img {    
+    margin-left: 10px;
+}
+
+.login {
+    overflow-y: hidden;
+}
+
+iframe {
+    border: 0px none;
+    overflow: hidden;
+    position: relative;
+    top: -210px;
+}
+
+.logo {
     padding: 10px;
 }
 
