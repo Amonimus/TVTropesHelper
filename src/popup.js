@@ -1,5 +1,4 @@
 chrome.storage.sync.get("login", function(storage){
-    console.log(storage.login);
     if (storage.login == false){
         document.getElementById("login").style.display = "block";
         document.getElementById("main").style.display = "none";

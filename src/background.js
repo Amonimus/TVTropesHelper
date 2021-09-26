@@ -29,7 +29,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 });
 
 chrome.runtime.onInstalled.addListener(function(details){
-    console.log("init");
+    console.log("tvtropes init");
     
     chrome.storage.sync.set({"login": false});
 
@@ -38,13 +38,18 @@ chrome.runtime.onInstalled.addListener(function(details){
     let forums = '<ul><li>All read.</li></ul>';
     chrome.storage.sync.set({"forums": forums});
     
-    chrome.alarms.create('timer', {periodInMinutes: 1});
+    chrome.storage.sync.set({"timer": 1});
+    chrome.storage.sync.get("timer", function(storage){
+        chrome.alarms.create('timer', {periodInMinutes: storage.timer});
+    });
     getTable("Following");
     getTable("Forums");
 });
 
 chrome.alarms.onAlarm.addListener(function(alarm){
-    console.log("tick");
+    chrome.storage.sync.get("timer", function(storage){
+        chrome.alarms.create('timer', {periodInMinutes: storage.timer});
+    });
     if (alarm.name == 'timer'){
         set_icon_default();
         getTable("Following");
