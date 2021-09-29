@@ -99,7 +99,12 @@ function getTable(source){
                 }
                 if (test){
                     if (source == "Following"){
-                        var href = rows[i].split("<td")[4].split('href="')[1].split('"')[0];
+                        console.log(rows[i].split("<td")[4]);
+                        try {
+                            var href = rows[i].split("<td")[4].split('href="')[1].split('"')[0];
+                        } catch(e){
+                            var href = rows[i].split("<td")[2].split('href="')[1].split('"')[0];
+                        }
                         var title = rows[i].split("<td")[2].split('target="_blank" >')[1].split("</a>")[0];
                         var time = rows[i].split("<td")[1].split("</button> ")[1].split("</td>")[0];
                         var sender = rows[i].split("<td")[3].split('"/pmwiki/pmwiki.php/Tropers/')[1].split('"')[0];
