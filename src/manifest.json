@@ -3,7 +3,7 @@
     "description": "Message notifier for TVTropes",
     "version": "1.0",
     "manifest_version": 3,
-    "permissions": ["storage", "scripting", "alarms"],
+    "permissions": ["storage", "scripting", "alarms", "input"],
     "host_permissions": ["https://tvtropes.org/"],
     "background": {
         "service_worker": "background.js"

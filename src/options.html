@@ -1,12 +1,21 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <title>TVtropes Helper Options</title>
     </head>
     <body>
+        <h1>Extension Settings</h1>
+        <hr>
         <label for="update">Refresh rate (minutes):</label>
         <input type="number" style="width: 50px;" id="update" name="update" min="1" value="1">
         <br>
-        <button id="Submit">Update</button>
+        <input type="checkbox"><label>Disable checking recent Forums</label>
+        <br>
+        <input type="checkbox"><label>Disable checking Following pages</label>
+        <br>
+        <button id="Submit">Save</button>
+        <hr>
+        <p>Created by: <a href="https://tvtropes.org/pmwiki/pmwiki.php/Tropers/Amonimus">Amonimus</a>, exclusively for <a href="https://tvtropes.org">TV Tropes</a></p>
     </body>
     <script src="options.js"></script>
 </html>

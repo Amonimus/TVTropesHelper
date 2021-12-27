@@ -1,64 +1,68 @@
 html {
-    min-width: 400px;
-    min-height: 400px;
-    background-color: #f1f1f1;
+  min-width: 400px;
+  min-height: 500px;
+  background-color: #f1f1f1;
 }
 
 body {
-    margin: 0px;
+  margin: 0px;
 }
 
 a:visited {
-    color: blue;
-}
-
-.auth {
-    background-color: #a0a0ff;
-    height: 50px;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    z-index: 1;
-}
-
-#name {
-    display: flex;
-}
-
-#name img {    
-    margin-left: 10px;
-}
-
-.login {
-    overflow-y: hidden;
-}
-
-iframe {
-    border: 0px none;
-    overflow: hidden;
-    position: relative;
-    top: -210px;
-}
-
-.logo {
-    padding: 10px;
-}
-
-button{
-    margin: 10px;
+  color: blue;
 }
 
 ul {
-    padding: 0;
-    list-style-type: none;
+  padding: 0;
+  list-style-type: none;
 }
 
 li {
-    border-radius: 25px;
-    border: 2px solid blue;
-    background-color: white;
-    font-weight: bold;
-    padding: 10px;
+  border-radius: 25px;
+  border: 2px solid blue;
+  background-color: white;
+  font-weight: bold;
+  padding: 10px;
+}
+
+button{
+  margin: 10px;
+}
+
+iframe {
+  border: 0px none;
+  overflow: hidden;
+  position: relative;
+  top: -210px;
+}
+
+.logo {
+  padding: 10px;
+}
+
+.toolbar {
+  text-align: center;
+}
+
+.auth {
+  background-color: #a0a0ff;
+  height: 50px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+#name {
+  display: flex;
+}
+
+#name img {    
+  margin-left: 10px;
+}
+
+.login {
+  overflow-y: hidden;
 }

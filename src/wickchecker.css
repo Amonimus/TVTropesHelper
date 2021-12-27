@@ -1,0 +1,23 @@
+.resulttable {
+    display: flex;
+}
+
+#wickcheck1 {
+    width: 50%;
+    border-style: solid;
+}
+#wickcheck2 {
+    width: 50%;
+    border-style: solid;
+}
+
+li:before {
+    content: "";
+    padding-left: 0px;
+    margin-left: -10px;
+}
+
+.highlight {
+    color: blue;
+    font-weight: bold;
+}

@@ -1,0 +1,39 @@
+.highLite{
+    border: 1px solid #888;
+    position: relative;
+}
+.highLite_colors,
+.highLite_editable {
+    padding: 16px;
+}
+.highLite_colors {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0; 
+    user-select: none;
+}
+.highLite > div:nth-child(2) {
+    position: relative;
+    color: black;
+}
+
+.wikiword{
+    color: blue;
+    text-shadow: 0px 0px 1px black;
+}
+.spoiler{
+    color: fuchsia;
+    text-shadow: 0px 0px 1px fuchsia;
+}
+.technical{
+    color: orange;
+    text-shadow: 0px 0px 1px orange;
+}
+.weblink{
+    text-decoration: underline;
+}
+.comment{
+    background-color: grey; opacity:0.5;
+}

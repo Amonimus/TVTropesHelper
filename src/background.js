@@ -19,31 +19,31 @@ function set_icon_default(){
     });
 }
 
-chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-    if (request.message === "async"){
-        set_icon_default();
-        getTable("Following");
-        getTable("Forums");
-        sendResponse({message: "response"});
+chrome.runtime.onMessage.addListener(
+    function(request, sender, sendResponse){
+        if(request.msg == "asyncFunc"){
+            (async () => {
+                mes = await ExUpdate();
+                console.log(mes);
+                sendResponse({msg: mes});
+            })();
+            return true;
+        };
     }
-});
+);
 
 chrome.runtime.onInstalled.addListener(function(details){
-    console.log("tvtropes init");
-    
+    console.log("tvtropes helper init");
+   
     chrome.storage.sync.set({"login": false});
 
-    let following = '<ul><li>All read.</li></ul>';
-    chrome.storage.sync.set({"following": following});
-    let forums = '<ul><li>All read.</li></ul>';
-    chrome.storage.sync.set({"forums": forums});
+    chrome.storage.sync.set({"following": '<ul><li>All read.</li></ul>'});
+    chrome.storage.sync.set({"forums": '<ul><li>All read.</li></ul>'});
     
     chrome.storage.sync.set({"timer": 1});
     chrome.storage.sync.get("timer", function(storage){
         chrome.alarms.create('timer', {periodInMinutes: storage.timer});
     });
-    getTable("Following");
-    getTable("Forums");
 });
 
 chrome.alarms.onAlarm.addListener(function(alarm){
@@ -51,11 +51,18 @@ chrome.alarms.onAlarm.addListener(function(alarm){
         chrome.alarms.create('timer', {periodInMinutes: storage.timer});
     });
     if (alarm.name == 'timer'){
-        set_icon_default();
-        getTable("Following");
-        getTable("Forums");
+        ExUpdate();
     }
 });
+
+async function ExUpdate(){
+    // console.log("tvtropes helper refresh");
+    set_icon_default();
+    var dbg;
+    dbg = await getTable("Following");
+    dbg += " "+await getTable("Forums");
+    return dbg;
+}
 
 function postError(source){
     let message = "<ul><li>Couldn't load "+source+"!</li></ul>";
@@ -66,14 +73,15 @@ function postError(source){
     } 
 }
 
-function getTable(source){
+async function getTable(source){
     var link;
+    var result = "Result";
     if (source == "Following"){
         link = 'https://tvtropes.org/pmwiki/awl.php';
     } else if (source == "Forums"){
         link = 'https://tvtropes.org/pmwiki/thread_watch.php'
     }
-    fetch(link)
+    fetcher = await fetch(link)
     .then(response => {
         if (!response.ok) {
             throw new Error('Network response was not ok');
@@ -84,7 +92,7 @@ function getTable(source){
         if (html.includes('<table')){
             var username = html.split('/pmwiki/unknower.php?handle=')[1].split('"')[0];
             var img = html.split('header-hover-menu"><img src="')[1].split('"')[0];
-            var profile = '<p>Hello, <a href="https://tvtropes.org/pmwiki/pmwiki.php/Tropers/'+username+'" target="_blank">'+username+'</a>!</p><a href="https://tvtropes.org/pmwiki/pmwiki.php/Tropers/'+username+'" target="_blank"><img class="profilepic" height=50px src="'+img+'"></a>';
+            var profile = '<b><p>Hello, <a href="https://tvtropes.org/pmwiki/pmwiki.php/Tropers/'+username+'" target="_blank">'+username+'</a>!</p></b><a href="https://tvtropes.org/pmwiki/pmwiki.php/Tropers/'+username+'" target="_blank"><img class="profilepic" height=50px src="'+img+'"></a>';
             chrome.storage.sync.set({"login": profile});
             
             var table = html.split('<table')[1].split('</table>')[0];
@@ -99,7 +107,6 @@ function getTable(source){
                 }
                 if (test){
                     if (source == "Following"){
-                        console.log(rows[i].split("<td")[4]);
                         try {
                             var href = rows[i].split("<td")[4].split('href="')[1].split('"')[0];
                         } catch(e){
@@ -124,6 +131,7 @@ function getTable(source){
             } else if (source == "Forums"){
                 chrome.storage.sync.set({"forums": message});
             }
+            result = "Complete "+source;
         } else {
             if (html.includes('signup-login-box')){
                 chrome.storage.sync.set({"login": false});
@@ -132,12 +140,16 @@ function getTable(source){
                 } else if (source == "Forums"){
                     chrome.storage.sync.set({"forums": "<ul><li>Login required.</li></ul>"});
                 }
+                result = "Logon";
             } else {
                 postError(source);
+                result = "Failure";
             }
         }
+        return result;
     })
     .catch(error => {
         console.log(error);
     });
+    return fetcher;
 }
