@@ -26,7 +26,8 @@ async function getPageWicks(link){
             for (var i = 0; i < twikilinks.length; i++){
                 wikiword = twikilinks[i].attributes["href"].value.split("pmwiki.php/")[1];
                 li = document.createElement("li");
-                li.innerText = wikiword;
+                li.innerHTML = '<a href="https://tvtropes.org/pmwiki/pmwiki.php/'+wikiword+'"></a>';
+                console.log('<a href="https://tvtropes.org/pmwiki/pmwiki.php/'+wikiword+'"></a>');
                 document.getElementById('wickcheck1').appendChild(li);
                 
                 innerwikitext = twikilinks[i].innerText;                
@@ -37,7 +38,7 @@ async function getPageWicks(link){
                 li.style.marginLeft = "1em";
                 document.getElementById('wickcheck1').appendChild(li);
             }
-            document.querySelector('#wickcheck1 h1').innerText = "Pages wicking to the current ("+String(twikilinks.length)+"):";
+            document.querySelector('#wickcheck1 h1').innerText = "Pages wicked from the current ("+String(twikilinks.length)+"):";
             return "Valid";            
         }
     })
