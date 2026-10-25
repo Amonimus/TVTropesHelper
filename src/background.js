@@ -47,6 +47,7 @@ chrome.runtime.onInstalled.addListener(function(details){
 });
 
 chrome.alarms.onAlarm.addListener(function(alarm){
+    console.log("Add listeners");
     chrome.storage.sync.get("timer", function(storage){
         chrome.alarms.create('timer', {periodInMinutes: storage.timer});
     });
@@ -56,7 +57,7 @@ chrome.alarms.onAlarm.addListener(function(alarm){
 });
 
 async function ExUpdate(){
-    // console.log("tvtropes helper refresh");
+    console.log("tvtropes helper refresh");
     set_icon_default();
     var dbg;
     dbg = await getTable("Following");
@@ -90,8 +91,8 @@ async function getTable(source){
     })
     .then(html => {
         if (html.includes('<table')){
-            var username = html.split('/pmwiki/unknower.php?handle=')[1].split('"')[0];
-            var img = html.split('header-hover-menu"><img src="')[1].split('"')[0];
+            var username = html.split('Account menu for ')[1].split('"')[0];
+            var img = html.split('mr-[10px] block h-[33px] w-[33px] overflow-hidden"><img src="')[1].split('"')[0];
             var profile = '<b><p>Hello, <a href="https://tvtropes.org/pmwiki/pmwiki.php/Tropers/'+username+'" target="_blank">'+username+'</a>!</p></b><a href="https://tvtropes.org/pmwiki/pmwiki.php/Tropers/'+username+'" target="_blank"><img class="profilepic" height=50px src="'+img+'"></a>';
             chrome.storage.sync.set({"login": profile});
             
@@ -101,9 +102,9 @@ async function getTable(source){
             for (var i=1; i<rows.length; i++){
                 var test;
                 if (source == "Following"){
-                    test = rows[i].includes('class="dark');
+                    test = rows[i].includes('text-tt-green');
                 } else if (source == "Forums"){
-                    test = rows[i].includes('fa-check-circle');
+                    test = rows[i].includes('text-tt-green');
                 }
                 if (test){
                     if (source == "Following"){
@@ -112,17 +113,20 @@ async function getTable(source){
                         } catch(e){
                             var href = rows[i].split("<td")[2].split('href="')[1].split('"')[0];
                         }
-                        var title = rows[i].split("<td")[2].split('target="_blank" >')[1].split("</a>")[0];
+                        console.log(rows[i].split("<td"));
+                        var title = rows[i].split("<td")[2].split('noreferrer">')[1].split("</a>")[0];
                         var time = rows[i].split("<td")[1].split("</button> ")[1].split("</td>")[0];
                         var sender = rows[i].split("<td")[3].split('"/pmwiki/pmwiki.php/Tropers/')[1].split('"')[0];
                     } else if (source == "Forums"){
-                        var href = rows[i].split("<td")[2].split('post you have not read" href="')[1].split('"')[0];
+                        var href = rows[i].split("<td")[2].split('href="')[1].split('"')[0];
                         var title = rows[i].split("<td")[2].split("</a>")[0].split('>').slice(-1)[0];
                         var time = rows[i].split("<td")[4].split("</a>")[0].split('>').slice(-1)[0];
-                        var sender = rows[i].split("<td")[5].split("</td>")[0].split('>')[1];
+                        var sender = rows[i].split("<td")[5].split("</td>")[0].split("</a>")[0].split('>')[2];
                     }
                     set_icon_notification();
-                    message += '<li><a href="https://tvtropes.org/' + href + '" target="_blank">' + title + "</a> on " + time + " by " + sender + "</li>";
+                    message += '<li><a href="https://tvtropes.org' + href + '" target="_blank">' + title + "</a> on " + time + " by " + sender + "</li>";
+                } else {
+                    result = "Failure";
                 }
             }
             message += "</ul>";
