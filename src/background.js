@@ -91,8 +91,10 @@ async function getTable(source){
     })
     .then(html => {
         if (html.includes('<table')){
-            var username = html.split('Account menu for ')[1].split('"')[0];
-            var img = html.split('mr-[10px] block h-[33px] w-[33px] overflow-hidden"><img src="')[1].split('"')[0];
+            var part = html.split('Account menu for ')[1];
+            var username = part.split('"')[0];
+            var img = part.split('<img src="')[1].split('"')[0];
+            console.log(img);
             var profile = '<b><p>Hello, <a href="https://tvtropes.org/pmwiki/pmwiki.php/Tropers/'+username+'" target="_blank">'+username+'</a>!</p></b><a href="https://tvtropes.org/pmwiki/pmwiki.php/Tropers/'+username+'" target="_blank"><img class="profilepic" height=50px src="'+img+'"></a>';
             chrome.storage.sync.set({"login": profile});
             
